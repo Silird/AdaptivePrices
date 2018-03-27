@@ -16,6 +16,7 @@ public class PositionAttribute {
     public static final int MIN_PRICE = 3;
     public static final int USE = 4;
     public static final int PRICE = 5;
+    public static final int SALES = 6;
 
 
     public static ElementAttribute getAttribute(int type, int field, String value)  {
@@ -38,6 +39,17 @@ public class PositionAttribute {
                 try {
                     Float castValue = Float.parseFloat(value);
                     return new ElementAttributeOne<>(type, "price", castValue);
+                }
+                catch (NumberFormatException ex){
+                    logger.warn("Значение \"" + value + "\" имеет parse данных " +
+                            "для запроса поиска по \"" + field + "\"");
+                    return new ElementAttributeOne<>(type, null, null);
+                }
+            }
+            case SALES: {
+                try {
+                    Float castValue = Float.parseFloat(value);
+                    return new ElementAttributeOne<>(type, "sales", castValue);
                 }
                 catch (NumberFormatException ex){
                     logger.warn("Значение \"" + value + "\" имеет parse данных " +
@@ -125,6 +137,18 @@ public class PositionAttribute {
                     return new ElementAttributeOne<>(type, null, null);
                 }
             }
+            case SALES: {
+                try {
+                    Float castValue1 = Float.parseFloat(value1);
+                    Float castValue2 = Float.parseFloat(value2);
+                    return new ElementAttributeTwo<>(type, "sales", castValue1, castValue2);
+                }
+                catch (NumberFormatException ex) {
+                    logger.warn("Значение \"" + value1 + " или значение " + value2 + "\" имеет parse данных " +
+                            "для запроса поиска по \"" + field + "\"");
+                    return new ElementAttributeOne<>(type, null, null);
+                }
+            }
             case MIN_PRICE: {
                 try {
                     Float castValue1 = Float.parseFloat(value1);
@@ -182,6 +206,20 @@ public class PositionAttribute {
                         listAttribute.add(castValue);
                     }
                     return new ElementAttributeList<>(type, "price", listAttribute);
+                } catch (NumberFormatException ex) {
+                    logger.warn("Значение \"" + values + "\" имеет неверный тип данных " +
+                            "для запроса поиска по \"" + field + "\"");
+                    return new ElementAttributeList<>(AttributeType.NOTHING.getID(), null, null);
+                }
+            }
+            case SALES: {
+                try {
+                    List<Float> listAttribute = new ArrayList<>();
+                    for (String value : values) {
+                        Float castValue = Float.parseFloat(value);
+                        listAttribute.add(castValue);
+                    }
+                    return new ElementAttributeList<>(type, "sales", listAttribute);
                 } catch (NumberFormatException ex) {
                     logger.warn("Значение \"" + values + "\" имеет неверный тип данных " +
                             "для запроса поиска по \"" + field + "\"");

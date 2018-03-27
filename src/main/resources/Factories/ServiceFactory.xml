@@ -2,6 +2,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+    <bean id="adaptivePriceService" class="ru.SilirdCo.AdaptivePrices.Core.impl.Services.AdaptivePriceService"/>
+
     <bean id="userService" class="ru.SilirdCo.AdaptivePrices.Core.impl.Services.impl.UserService"/>
     <bean id="positionService" class="ru.SilirdCo.AdaptivePrices.Core.impl.Services.impl.PositionService"/>
 </beans>

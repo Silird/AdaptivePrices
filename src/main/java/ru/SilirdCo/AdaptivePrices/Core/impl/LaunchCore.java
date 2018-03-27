@@ -2,6 +2,8 @@ package ru.SilirdCo.AdaptivePrices.Core.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories.DAOFactory;
+import ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories.ServiceFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Util.PersistenceUtil;
 import ru.SilirdCo.AdaptivePrices.Util.ExceptionHandler;
 
@@ -18,8 +20,8 @@ public class LaunchCore {
             }
 
             logger.info("\n\nИнициализация фабрик..\n\n");
-            //DAOFactory.getInstance();
-            //ServiceFactory.getInstance();
+            DAOFactory.getInstance();
+            ServiceFactory.getInstance();
         }
         catch (Exception ex) {
             ExceptionHandler.handle(logger, ex);

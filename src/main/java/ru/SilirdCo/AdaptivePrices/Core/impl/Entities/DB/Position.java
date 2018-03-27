@@ -25,6 +25,8 @@ public class Position extends BaseEntity implements Serializable {
     @Column(name = "price")
     private Float price;
 
+    @Column(name = "sales")
+    private Float sales;
 
     @Column(name = "min_price")
     private Float minPrice;
@@ -109,5 +111,13 @@ public class Position extends BaseEntity implements Serializable {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public Float getSales() {
+        return sales;
+    }
+
+    public void setSales(Float sales) {
+        this.sales = sales;
     }
 }
