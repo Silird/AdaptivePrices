@@ -1,4 +1,4 @@
-package ru.SilirdCo.AdaptivePrices.View.Launch;
+package ru.SilirdCo.AdaptivePrices.View.impl.Launch;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ru.SilirdCo.AdaptivePrices.View.MainFrame.MainFrameController;
+import ru.SilirdCo.AdaptivePrices.View.impl.MainFrame.MainFrameController;
 
 import java.io.IOException;
 

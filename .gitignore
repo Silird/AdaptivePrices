@@ -40,3 +40,5 @@ iqshop-codegen-maven-plugin/target/
 /dependency-reduced-pom.xml
 
 # other
+Configuration/
+Logs/

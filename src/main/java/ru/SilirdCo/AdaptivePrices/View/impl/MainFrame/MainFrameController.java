@@ -1,4 +1,4 @@
-package ru.SilirdCo.AdaptivePrices.View.MainFrame;
+package ru.SilirdCo.AdaptivePrices.View.impl.MainFrame;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

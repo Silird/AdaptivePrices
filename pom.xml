@@ -194,13 +194,6 @@
             <version>3.3.9</version>
         </dependency>
 
-
-        <dependency>
-            <groupId>ru.SilirdCo</groupId>
-            <artifactId>luxoft-codegen-maven-plugin</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
     </dependencies>
 
 

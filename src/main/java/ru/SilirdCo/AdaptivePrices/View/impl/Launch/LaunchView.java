@@ -1,4 +1,4 @@
-package ru.SilirdCo.AdaptivePrices.View.Launch;
+package ru.SilirdCo.AdaptivePrices.View.impl.Launch;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
