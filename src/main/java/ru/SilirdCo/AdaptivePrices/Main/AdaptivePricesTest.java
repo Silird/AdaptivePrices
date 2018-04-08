@@ -18,6 +18,14 @@ public class AdaptivePricesTest {
             System.exit(1);
         }
 
+        ServiceFactory.getInstance()
+                .getAdaptivePriceService()
+                .reset();
+
+        ServiceFactory.getInstance()
+                .getAdaptivePriceService()
+                .calculate();
+
         /*
         User user = new User();
         user.setName("Admin");

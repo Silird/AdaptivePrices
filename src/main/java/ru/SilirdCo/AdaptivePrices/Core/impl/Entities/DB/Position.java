@@ -25,6 +25,9 @@ public class Position extends BaseEntity implements Serializable {
     @Column(name = "price")
     private Float price;
 
+    @Column(name = "defaultPrice")
+    private Float defaultPrice;
+
     @Column(name = "sales")
     private Float sales;
 
@@ -33,6 +36,9 @@ public class Position extends BaseEntity implements Serializable {
 
     @Column(name = "max_price")
     private Float maxPrice;
+
+    @Column(name = "increase")
+    private Boolean increase;
 
     @Column(name = "use")
     private Boolean use;
@@ -119,5 +125,21 @@ public class Position extends BaseEntity implements Serializable {
 
     public void setSales(Float sales) {
         this.sales = sales;
+    }
+
+    public Boolean getIncrease() {
+        return increase;
+    }
+
+    public void setIncrease(Boolean increase) {
+        this.increase = increase;
+    }
+
+    public Float getDefaultPrice() {
+        return defaultPrice;
+    }
+
+    public void setDefaultPrice(Float defaultPrice) {
+        this.defaultPrice = defaultPrice;
     }
 }
