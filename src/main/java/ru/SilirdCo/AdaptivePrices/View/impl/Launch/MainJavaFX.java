@@ -6,44 +6,82 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ru.SilirdCo.AdaptivePrices.View.impl.MainFrame.MainFrameController;
-
-import java.io.IOException;
+import javafx.stage.StageStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.SilirdCo.AdaptivePrices.View.impl.Frames.BaseController;
+import ru.SilirdCo.AdaptivePrices.View.impl.Frames.MainFrameController;
+import ru.SilirdCo.AdaptivePrices.View.impl.Util.Panel.CommonPanel;
+import ru.SilirdCo.AdaptivePrices.View.impl.Util.Factory.PanelFactory;
 
 public class MainJavaFX extends Application {
+    private static final Logger logger = LoggerFactory.getLogger(MainJavaFX.class);
+
     public static MainFrameController mainFrameController;
-    public static Node mainFrameNode;
+    public static Scene scene;
+    public static Stage primaryStage;
 
     public static void show(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Frames/MainFrame.fxml"));
-        mainFrameController = new MainFrameController();
+        CommonPanel<MainFrameController> commonPanel = PanelFactory.getInstance().getMainPanel();
+        mainFrameController = commonPanel.getController();
         loader.setController(mainFrameController);
 
-        Node mainFrameNode = null;
-        try {
-            mainFrameNode = loader.load();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        Node mainFrameNode = commonPanel.getPanel();
 
-        Scene scene = new Scene((Parent) mainFrameNode);
+        MainJavaFX.primaryStage = primaryStage;
+        scene = new Scene((Parent) mainFrameNode);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Главная форма");
         primaryStage.show();
-        //primaryStage.setMaximized(true);
 
         primaryStage.setOnCloseRequest(we -> {
             Platform.exit();
             System.exit(0);
         });
+    }
 
+    public static void openFrame(CommonPanel commonPanel, String title) {
+        Platform.runLater(() -> {
+            Stage stage = new Stage();
+            Scene scene = new Scene((Parent) commonPanel.getPanel());
+            stage.setScene(scene);
+            stage.setTitle(title);
+            stage.show();
 
+            if (commonPanel.getController() != null) {
+                if (commonPanel.getController() instanceof BaseController) {
+                    ((BaseController) commonPanel.getController()).setFrame(stage);
+                }
+            }
+        });
+    }
+
+    public static void openDialog(CommonPanel commonPanel, String title) {
+        Platform.runLater(() -> {
+            Stage stage = new Stage();
+            stage.setTitle(title);
+            //stage.initStyle(StageStyle.UTILITY);
+            stage.initOwner(MainJavaFX.primaryStage);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            Scene scene = new Scene((Parent) commonPanel.getPanel());
+            stage.setScene(scene);
+
+            if (commonPanel.getController() != null) {
+                if (commonPanel.getController() instanceof BaseController) {
+                    ((BaseController) commonPanel.getController()).setFrame(stage);
+                }
+            }
+
+            stage.showAndWait();
+            //stage.show();
+        });
     }
 }

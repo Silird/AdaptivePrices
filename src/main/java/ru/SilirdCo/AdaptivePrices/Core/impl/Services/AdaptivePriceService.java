@@ -26,38 +26,40 @@ public class AdaptivePriceService implements IAdaptivePriceService {
 
         averageSales = averageSales/size;
 
-        for (Position position : positions) {
-            if (VarUtils.getBoolean(position.getUse())) {
-                float coefficient = VarUtils.getFloat(position.getSales()) / averageSales;
+        if (averageSales != 0) {
+            for (Position position : positions) {
+                if (VarUtils.getBoolean(position.getUse())) {
+                    float coefficient = VarUtils.getFloat(position.getSales()) / averageSales;
 
-                float newPrice = VarUtils.getFloat(position.getDefaultPrice()) * coefficient;
+                    float newPrice = VarUtils.getFloat(position.getDefaultPrice()) * coefficient;
 
-                if (newPrice > VarUtils.getFloat(position.getMaxPrice())) {
-                    newPrice = VarUtils.getFloat(position.getMaxPrice());
-                }
-                else if (newPrice < VarUtils.getFloat(position.getMinPrice())) {
-                    newPrice = VarUtils.getFloat(position.getMinPrice());
-                }
+                    if (newPrice > VarUtils.getFloat(position.getMaxPrice())) {
+                        newPrice = VarUtils.getFloat(position.getMaxPrice());
+                    }
+                    else if (newPrice < VarUtils.getFloat(position.getMinPrice())) {
+                        newPrice = VarUtils.getFloat(position.getMinPrice());
+                    }
 
-                newPrice = VarUtils.roundFloat(newPrice);
+                    newPrice = VarUtils.roundFloat(newPrice);
 
-                if (newPrice > VarUtils.getFloat(position.getPrice())) {
-                    position.setIncrease(true);
-                }
-                else if (newPrice < VarUtils.getFloat(position.getPrice())) {
-                    position.setIncrease(false);
-                }
-                else {
-                    position.setIncrease(null);
-                }
+                    if (newPrice > VarUtils.getFloat(position.getPrice())) {
+                        position.setIncrease(true);
+                    }
+                    else if (newPrice < VarUtils.getFloat(position.getPrice())) {
+                        position.setIncrease(false);
+                    }
+                    else {
+                        position.setIncrease(null);
+                    }
 
-                position.setPrice(newPrice);
+                    position.setPrice(newPrice);
+                }
             }
-        }
 
-        ServiceFactory.getInstance()
-                .getPositionService()
-                .save(positions);
+            ServiceFactory.getInstance()
+                    .getPositionService()
+                    .save(positions);
+        }
 
         return true;
     }
@@ -71,6 +73,7 @@ public class AdaptivePriceService implements IAdaptivePriceService {
         for (Position position : positions) {
             position.setPrice(position.getDefaultPrice());
             position.setSales(0F);
+            position.setIncrease(null);
         }
 
         ServiceFactory.getInstance()

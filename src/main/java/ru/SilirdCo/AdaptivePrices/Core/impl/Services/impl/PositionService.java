@@ -13,6 +13,7 @@ public class PositionService extends BaseService<Position> {
                 .getPrositionDAO());
     }
 
+    /*
     @Override
     public List<Position> getElements() {
         List<Position> result = new ArrayList<>();
@@ -71,4 +72,5 @@ public class PositionService extends BaseService<Position> {
 
         return result;
     }
+    */
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="399.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="113.0" layoutY="65.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <Label fx:id="labelTitle" text="Добавление позиции" />
+            <VBox prefWidth="100.0">
+               <children>
+                  <Label text="Наименование" />
+                  <TextField fx:id="textName" prefHeight="25.0" prefWidth="488.0" />
+               </children>
+            </VBox>
+            <VBox prefWidth="100.0">
+               <children>
+                  <Label text="Стандартная цена" />
+                  <TextField fx:id="testDefaultPrice" />
+               </children>
+            </VBox>
+            <HBox prefWidth="200.0" spacing="10.0">
+               <children>
+                  <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Минимальная цена" />
+                        <TextField fx:id="textMinPrice" />
+                     </children>
+                  </VBox>
+                  <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Максимальная цена" />
+                        <TextField fx:id="textMaxPrice" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <CheckBox fx:id="checkUse" mnemonicParsing="false" text="В обороте" />
+            <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <HBox nodeOrientation="RIGHT_TO_LEFT" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="butCancel" mnemonicParsing="false" text="Отмена" />
+                        <Button fx:id="butAccept" mnemonicParsing="false" text="Ок" />
+                        <Button fx:id="butRecord" mnemonicParsing="false" text="Принять" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

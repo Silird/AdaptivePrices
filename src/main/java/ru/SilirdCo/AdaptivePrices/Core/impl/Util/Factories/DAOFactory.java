@@ -3,6 +3,7 @@ package ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.SilirdCo.AdaptivePrices.Core.impl.DAO.impl.PositionDAO;
+import ru.SilirdCo.AdaptivePrices.Core.impl.DAO.impl.PositionDAOTest;
 import ru.SilirdCo.AdaptivePrices.Core.impl.DAO.impl.UserDAO;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.User;
@@ -25,6 +26,6 @@ public class DAOFactory {
     }
 
     public IDAO<Position> getPrositionDAO() {
-        return context.getBean("positionDAO", PositionDAO.class);
+        return context.getBean("positionDAO", PositionDAOTest.class);
     }
 }
