@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories.ServiceFactory;
 import ru.SilirdCo.AdaptivePrices.Util.VarUtils;
+import ru.SilirdCo.AdaptivePrices.View.impl.Events.EventSender;
 import ru.SilirdCo.AdaptivePrices.View.impl.Launch.MainJavaFX;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.TextField.FloatTextField;
 
@@ -58,27 +59,53 @@ public class CreatePositionFrameController extends BaseController implements Ini
         addListeners();
     }
 
+    private boolean requiredFields() {
+
+        boolean check = true;
+        String message = "Ошибки в заполнении полей:";
+        if(VarUtils.getString(textName.getText()).equals("")) {
+            message += "\n Не заполнено поле: наименование";
+            check = false;
+        }
+        if(floatMinPrice.getFloat() > floatDefaultPrice.getFloat()) {
+            message += "\n Минимальная цена больше стандартной";
+            check = false;
+        }
+        if(floatMaxPrice.getFloat() < floatDefaultPrice.getFloat()) {
+            message += "\n Максимальная цена меньше стандартной";
+            check = false;
+        }
+
+        if (!check) {
+            EventSender.sendWarn(message);
+        }
+
+        return check;
+    }
+
     private void addListeners() {
         butRecord.setOnAction(event -> {
-            Position position = ServiceFactory.getInstance()
-                    .getPositionService()
-                    .save(getPosition());
-            setPosition(position);
-            MainJavaFX.mainFrameController.update();
+            if (requiredFields()) {
+                Position position = ServiceFactory.getInstance()
+                        .getPositionService()
+                        .save(getPosition());
+                setPosition(position);
+                EventSender.sendUpdate();
+            }
         });
 
         butAccept.setOnAction(event -> {
-            Position position = ServiceFactory.getInstance()
-                    .getPositionService()
-                    .save(getPosition());
-            setPosition(position);
-            MainJavaFX.mainFrameController.update();
-            close();
+            if (requiredFields()) {
+                Position position = ServiceFactory.getInstance()
+                        .getPositionService()
+                        .save(getPosition());
+                setPosition(position);
+                EventSender.sendUpdate();
+                close();
+            }
         });
 
-        butCancel.setOnAction(event -> {
-            close();
-        });
+        butCancel.setOnAction(event -> close());
     }
 
     private Position getPosition() {

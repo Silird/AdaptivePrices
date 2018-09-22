@@ -11,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories.ServiceFactory;
+import ru.SilirdCo.AdaptivePrices.View.impl.Events.EventTransport;
+import ru.SilirdCo.AdaptivePrices.View.impl.Events.Filters.UpdateFilter;
+import ru.SilirdCo.AdaptivePrices.View.impl.Events.Filters.WarnFilter;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.Factory.FrameFactory;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.TableCell.IdTableCell;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.TableCell.IncreaseTableCell;
@@ -47,10 +50,32 @@ public class MainFrameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initSubscriptions();
         addListeners();
         setTable();
 
         update();
+    }
+
+    private void initSubscriptions() {
+        EventTransport.getInstance().getObservable()
+                .filter(new UpdateFilter())
+                .subscribe(event -> update());
+
+        EventTransport.getInstance().getObservable()
+                .filter(new WarnFilter())
+                .subscribe(event -> warningFrame(event.getMessage()));
+    }
+
+    private void warningFrame(String message){
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Предупреждение");
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+
+            alert.showAndWait();
+        });
     }
 
     @SuppressWarnings("unchecked")

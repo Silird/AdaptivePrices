@@ -15,6 +15,7 @@ import ru.SilirdCo.AdaptivePrices.View.impl.Launch.MainJavaFX;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.Factory.FrameFactory;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class SalesFrameController extends BaseController implements Initializable {
@@ -64,11 +65,29 @@ public class SalesFrameController extends BaseController implements Initializabl
         butAdd.setOnAction(event -> FrameFactory.getInstance()
                 .getSelectFrame(position -> FrameFactory.getInstance()
                         .getSelectSalesFrame(sales -> {
-                            Sale sale = new Sale();
-                            sale.setPosition(position);
-                            sale.setSales(sales);
+                            if (position != null) {
+                                Sale existingSale = null;
+                                for (Sale sale : table.getItems()) {
+                                    if (Objects.equals(sale.getPosition().getId(), position.getId())) {
+                                        existingSale = sale;
+                                        break;
+                                    }
+                                }
 
-                            table.getItems().add(sale);
+                                if (existingSale == null) {
+                                    Sale sale = new Sale();
+                                    sale.setPosition(position);
+                                    sale.setSales(sales);
+
+                                    table.getItems().add(sale);
+                                }
+                                else {
+                                    existingSale.setSales(VarUtils.getFloat(existingSale.getSales()) +
+                                            VarUtils.getFloat(sales));
+
+                                    table.refresh();
+                                }
+                            }
                         })));
 
         butRecord.setOnAction(event -> {

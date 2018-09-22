@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories.ServiceFactory;
 import ru.SilirdCo.AdaptivePrices.Util.VarUtils;
+import ru.SilirdCo.AdaptivePrices.View.impl.Events.EventTransport;
+import ru.SilirdCo.AdaptivePrices.View.impl.Events.Filters.UpdateFilter;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.TableCell.IdTableCell;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.TableCell.IncreaseTableCell;
 
@@ -37,8 +39,15 @@ public class ShowFrameController extends BaseController implements Initializable
     public void initialize(URL location, ResourceBundle resources) {
         addListeners();
         setTable();
+        initSubscriptions();
 
         update();
+    }
+
+    private void initSubscriptions() {
+        EventTransport.getInstance().getObservable()
+                .filter(new UpdateFilter())
+                .subscribe(event -> update());
     }
 
     @SuppressWarnings("unchecked")

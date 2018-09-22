@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories.ServiceFactory;
+import ru.SilirdCo.AdaptivePrices.Util.VarUtils;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.TableCell.IdTableCell;
 
 import java.net.URL;
@@ -116,7 +117,13 @@ public class SelectFrameController extends BaseController implements Initializab
                 table.getItems().subList(0, rows).clear();
             }
 
-            ObservableList<Position> data = FXCollections.observableArrayList(positions);
+            ObservableList<Position> data = FXCollections.observableArrayList();
+
+            for (Position position : positions) {
+                if (VarUtils.getBoolean(position.getUse())) {
+                    data.add(position);
+                }
+            }
 
             table.setItems(data);
             table.refresh();
