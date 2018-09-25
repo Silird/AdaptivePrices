@@ -3,6 +3,7 @@ package ru.SilirdCo.AdaptivePrices.Core.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
+import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.User;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories.DAOFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories.ServiceFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Util.PersistenceUtil;
@@ -27,6 +28,7 @@ public class LaunchCore {
             ServiceFactory.getInstance();
 
             addTestPositions();
+            addTestUsers();
         }
         catch (Exception ex) {
             ExceptionHandler.handle(logger, ex);
@@ -98,5 +100,27 @@ public class LaunchCore {
         ServiceFactory.getInstance()
                 .getPositionService()
                 .save(position);
+    }
+
+    private static void addTestUsers() {
+        User user = new User();
+        user.setId(null);
+        user.setName("admin");
+        user.setPassword("admin");
+        user.setAdmin(true);
+
+        ServiceFactory.getInstance()
+                .getUserService()
+                .save(user);
+
+        user = new User();
+        user.setId(null);
+        user.setName("guest");
+        user.setPassword("guest");
+        user.setAdmin(false);
+
+        ServiceFactory.getInstance()
+                .getUserService()
+                .save(user);
     }
 }

@@ -2,7 +2,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean id="userDAO" class="ru.SilirdCo.AdaptivePrices.Core.impl.DAO.impl.UserDAO"/>
+    <bean id="userDAO" class="ru.SilirdCo.AdaptivePrices.Core.impl.DAO.impl.UserDAOTest"/>
     <bean id="positionDAO" class="ru.SilirdCo.AdaptivePrices.Core.impl.DAO.impl.PositionDAOTest"/>
 
 </beans>
