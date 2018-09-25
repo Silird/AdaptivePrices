@@ -7,23 +7,23 @@ import javafx.util.Callback;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.StructureGUI;
 
-public class IdTableCell extends TableCell<Position, Integer> {
+public class UseTableCell extends TableCell<Position, Boolean> {
 
-    public IdTableCell() {
+    public UseTableCell() {
         super();
     }
 
-    public static Callback<TableColumn<Position, Integer>, TableCell<Position, Integer>>
+    public static Callback<TableColumn<Position, Boolean>, TableCell<Position, Boolean>>
     getCellFactory() {
         return e -> {
-            IdTableCell cell = new IdTableCell();
+            UseTableCell cell = new UseTableCell();
             cell.setAlignment(Pos.CENTER);
             return cell;
         };
     }
 
     @Override
-    protected void updateItem(Integer item, boolean empty) {
+    protected void updateItem(Boolean item, boolean empty) {
         super.updateItem(item, empty);
 
 
@@ -31,7 +31,7 @@ public class IdTableCell extends TableCell<Position, Integer> {
             setGraphic(StructureGUI.defaultIcon);
         }
         else {
-            setGraphic(StructureGUI.getIcon(("dash")));
+            setGraphic(StructureGUI.getIcon(("dash" + item)));
         }
     }
 }

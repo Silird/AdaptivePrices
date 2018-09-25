@@ -7,15 +7,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories.ServiceFactory;
+import ru.SilirdCo.AdaptivePrices.Util.Structure;
 import ru.SilirdCo.AdaptivePrices.View.impl.Events.EventTransport;
 import ru.SilirdCo.AdaptivePrices.View.impl.Events.Filters.UpdateFilter;
-import ru.SilirdCo.AdaptivePrices.View.impl.Events.Filters.WarnFilter;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.Factory.FrameFactory;
-import ru.SilirdCo.AdaptivePrices.View.impl.Util.TableCell.IdTableCell;
+import ru.SilirdCo.AdaptivePrices.View.impl.Util.TableCell.UseTableCell;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.TableCell.IncreaseTableCell;
 
 import java.net.URL;
@@ -24,16 +25,23 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MainFrameController implements Initializable {
+public class MainFrameController extends BaseController implements Initializable {
+    @SuppressWarnings("unused")
     private static final Logger logger = LoggerFactory.getLogger(MainFrameController.class);
 
     @FXML
     private TableView<Position> table;
 
     @FXML
+    private HBox buttons;
+    @FXML
     private Button butAdd;
     @FXML
     private Button butEdit;
+    @FXML
+    private Button butUsers;
+    @FXML
+    private Button butChangeUser;
     @FXML
     private Button butReset;
     @FXML
@@ -53,29 +61,22 @@ public class MainFrameController implements Initializable {
         initSubscriptions();
         addListeners();
         setTable();
+        initPermissions();
 
         update();
+    }
+
+    private void initPermissions() {
+        if (!Structure.admin) {
+            buttons.getChildren().remove(butAdd);
+            buttons.getChildren().remove(butUsers);
+        }
     }
 
     private void initSubscriptions() {
         EventTransport.getInstance().getObservable()
                 .filter(new UpdateFilter())
                 .subscribe(event -> update());
-
-        EventTransport.getInstance().getObservable()
-                .filter(new WarnFilter())
-                .subscribe(event -> warningFrame(event.getMessage()));
-    }
-
-    private void warningFrame(String message){
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Предупреждение");
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-
-            alert.showAndWait();
-        });
     }
 
     @SuppressWarnings("unchecked")
@@ -88,7 +89,7 @@ public class MainFrameController implements Initializable {
 
         column = table.getColumns().get(TABLE_ID);
         column.setText("");
-        column.setCellFactory(IdTableCell.getCellFactory());
+        column.setCellFactory(UseTableCell.getCellFactory());
         column.setCellValueFactory(new PropertyValueFactory<Position, Boolean>("use"));
 
         column = table.getColumns().get(TABLE_NAME);
@@ -141,10 +142,17 @@ public class MainFrameController implements Initializable {
             }
         });
 
-        butSales.setOnAction(event -> {
+        butUsers.setOnAction(event -> FrameFactory.getInstance()
+                .openUserMainFrame());
+
+        butChangeUser.setOnAction(event -> {
+            super.close();
             FrameFactory.getInstance()
-                    .openSalesFrame();
+                    .openAuthFrame();
         });
+
+        butSales.setOnAction(event -> FrameFactory.getInstance()
+                .openSalesFrame());
 
         butReset.setOnAction(event -> {
             Alert conf = new Alert(Alert.AlertType.CONFIRMATION, "Вы уверены, что хотите сбросить цены?\n");
@@ -183,6 +191,8 @@ public class MainFrameController implements Initializable {
 
             ObservableList<Position> data = FXCollections.observableArrayList(positions);
 
+            logger.info("" + data.size());
+
             table.setItems(data);
             table.refresh();
 
@@ -191,5 +201,12 @@ public class MainFrameController implements Initializable {
                 table.getSelectionModel().selectFirst();
             }
         });
+    }
+
+    @Override
+    public void close() {
+        super.close();
+        Platform.exit();
+        System.exit(0);
     }
 }

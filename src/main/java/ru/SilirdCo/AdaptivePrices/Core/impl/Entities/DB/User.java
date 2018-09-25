@@ -22,6 +22,9 @@ public class User extends BaseEntity implements Serializable {
     @Column(name = "name", columnDefinition="TEXT")
     private String name;
 
+    @Column(name = "password", columnDefinition="TEXT")
+    private String password;
+
     @Column(name = "admin")
     private Boolean admin;
 
@@ -75,5 +78,13 @@ public class User extends BaseEntity implements Serializable {
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

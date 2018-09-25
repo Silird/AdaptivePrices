@@ -14,6 +14,8 @@ public class BaseController {
     }
 
     public void close() {
-        frame.close();
+        if (frame != null) {
+            frame.close();
+        }
     }
 }

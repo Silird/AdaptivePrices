@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
+import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.User;
 import ru.SilirdCo.AdaptivePrices.Util.ExceptionHandler;
 import ru.SilirdCo.AdaptivePrices.View.impl.Frames.*;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.Panel.CommonPanel;
@@ -121,6 +122,60 @@ public class PanelFactory {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Frames/SalesFrame.fxml"));
 
         SalesFrameController controller = new SalesFrameController();
+        loader.setController(controller);
+
+        try {
+            content = loader.load();
+        }
+        catch (IOException ex) {
+            ExceptionHandler.handle(logger, ex);
+            content = EmptyPanel.get();
+        }
+
+        return new CommonPanel<>(controller, content);
+    }
+
+    public CommonPanel<UserMainFrameController> getUserMainPanel() {
+        Node content;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Frames/UserMainFrame.fxml"));
+
+        UserMainFrameController controller = new UserMainFrameController();
+        loader.setController(controller);
+
+        try {
+            content = loader.load();
+        }
+        catch (IOException ex) {
+            ExceptionHandler.handle(logger, ex);
+            content = EmptyPanel.get();
+        }
+
+        return new CommonPanel<>(controller, content);
+    }
+
+    public CommonPanel<CreateUserFrameController> getCreateUserPanel(User user) {
+        Node content;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Frames/CreateUserFrame.fxml"));
+
+        CreateUserFrameController controller = new CreateUserFrameController(user);
+        loader.setController(controller);
+
+        try {
+            content = loader.load();
+        }
+        catch (IOException ex) {
+            ExceptionHandler.handle(logger, ex);
+            content = EmptyPanel.get();
+        }
+
+        return new CommonPanel<>(controller, content);
+    }
+
+    public CommonPanel<AuthFrameController> getAuthPanel() {
+        Node content;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Frames/AuthFrame.fxml"));
+
+        AuthFrameController controller = new AuthFrameController();
         loader.setController(controller);
 
         try {

@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories.ServiceFactory;
 import ru.SilirdCo.AdaptivePrices.Util.VarUtils;
-import ru.SilirdCo.AdaptivePrices.View.impl.Util.TableCell.IdTableCell;
+import ru.SilirdCo.AdaptivePrices.View.impl.Util.TableCell.UseTableCell;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class SelectFrameController extends BaseController implements Initializab
 
         column = table.getColumns().get(TABLE_ID);
         column.setText("");
-        column.setCellFactory(IdTableCell.getCellFactory());
+        column.setCellFactory(UseTableCell.getCellFactory());
         column.setCellValueFactory(new PropertyValueFactory<Position, Boolean>("use"));
 
         column = table.getColumns().get(TABLE_NAME);

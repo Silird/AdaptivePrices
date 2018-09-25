@@ -15,7 +15,7 @@ import ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories.ServiceFactory;
 import ru.SilirdCo.AdaptivePrices.Util.VarUtils;
 import ru.SilirdCo.AdaptivePrices.View.impl.Events.EventTransport;
 import ru.SilirdCo.AdaptivePrices.View.impl.Events.Filters.UpdateFilter;
-import ru.SilirdCo.AdaptivePrices.View.impl.Util.TableCell.IdTableCell;
+import ru.SilirdCo.AdaptivePrices.View.impl.Util.TableCell.UseTableCell;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.TableCell.IncreaseTableCell;
 
 import java.net.URL;
@@ -60,7 +60,7 @@ public class ShowFrameController extends BaseController implements Initializable
 
         column = table.getColumns().get(TABLE_ID);
         column.setText("");
-        column.setCellFactory(IdTableCell.getCellFactory());
+        column.setCellFactory(UseTableCell.getCellFactory());
         column.setCellValueFactory(new PropertyValueFactory<Position, Boolean>("use"));
 
         column = table.getColumns().get(TABLE_NAME);

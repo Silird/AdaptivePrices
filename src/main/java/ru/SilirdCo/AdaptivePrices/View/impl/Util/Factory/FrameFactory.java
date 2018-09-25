@@ -3,6 +3,7 @@ package ru.SilirdCo.AdaptivePrices.View.impl.Util.Factory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
+import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.User;
 import ru.SilirdCo.AdaptivePrices.View.impl.Frames.*;
 import ru.SilirdCo.AdaptivePrices.View.impl.Launch.MainJavaFX;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.Panel.CommonPanel;
@@ -61,5 +62,26 @@ public class FrameFactory {
                 .getSalesPanel();
 
         MainJavaFX.openFrame(panel, "Ввод продаж");
+    }
+
+    public void openUserMainFrame() {
+        CommonPanel<UserMainFrameController> panel = PanelFactory.getInstance()
+                .getUserMainPanel();
+
+        MainJavaFX.openFrame(panel, "Пользователи");
+    }
+
+    public void openCreateUserFrame(User user) {
+        CommonPanel<CreateUserFrameController> panel = PanelFactory.getInstance()
+                .getCreateUserPanel(user);
+
+        MainJavaFX.openFrame(panel, "Обновление пользователя");
+    }
+
+    public void openAuthFrame() {
+        CommonPanel<AuthFrameController> panel = PanelFactory.getInstance()
+                .getAuthPanel();
+
+        MainJavaFX.openFrame(panel, "Авторизация");
     }
 }

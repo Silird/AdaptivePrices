@@ -16,11 +16,10 @@ public class LaunchCore {
 
         try {
             logger.info("\n\nИнициализация сессии..\n\n");
-            /*
+
             if (!PersistenceUtil.initSession()) {
                 return false;
             }
-            */
 
             logger.info("\n\nИнициализация фабрик..\n\n");
             DAOFactory.getInstance();

@@ -6,13 +6,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.SilirdCo.AdaptivePrices.View.impl.Events.EventTransport;
+import ru.SilirdCo.AdaptivePrices.View.impl.Events.Filters.WarnFilter;
 import ru.SilirdCo.AdaptivePrices.View.impl.Frames.BaseController;
 import ru.SilirdCo.AdaptivePrices.View.impl.Frames.MainFrameController;
+import ru.SilirdCo.AdaptivePrices.View.impl.Util.Factory.FrameFactory;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.Panel.CommonPanel;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.Factory.PanelFactory;
 
@@ -29,10 +33,16 @@ public class MainJavaFX extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Frames/MainFrame.fxml"));
-        CommonPanel<MainFrameController> commonPanel = PanelFactory.getInstance().getMainPanel();
+        EventTransport.getInstance().getObservable()
+                .filter(new WarnFilter())
+                .subscribe(event -> warningFrame(event.getMessage()));
+
+        FrameFactory.getInstance().openAuthFrame();
+        //CommonPanel<MainFrameController> commonPanel = PanelFactory.getInstance().getMainPanel();
+
+        //openFrame(commonPanel, "Авторизация");
+        /*
         mainFrameController = commonPanel.getController();
-        loader.setController(mainFrameController);
 
         Node mainFrameNode = commonPanel.getPanel();
 
@@ -45,6 +55,18 @@ public class MainJavaFX extends Application {
         primaryStage.setOnCloseRequest(we -> {
             Platform.exit();
             System.exit(0);
+        });
+        */
+    }
+
+    private void warningFrame(String message){
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Предупреждение");
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+
+            alert.showAndWait();
         });
     }
 
