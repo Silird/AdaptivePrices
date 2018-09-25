@@ -10,7 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories.ServiceFactory;
+import ru.SilirdCo.AdaptivePrices.Util.Events.SenderFactory;
 import ru.SilirdCo.AdaptivePrices.Util.VarUtils;
+import ru.SilirdCo.AdaptivePrices.View.impl.Events.EventSender;
 import ru.SilirdCo.AdaptivePrices.View.impl.Launch.MainJavaFX;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.Factory.FrameFactory;
 
@@ -104,7 +106,7 @@ public class SalesFrameController extends BaseController implements Initializabl
                 }
             }
             ServiceFactory.getInstance().getAdaptivePriceService().calculate();
-            MainJavaFX.mainFrameController.update();
+            EventSender.sendUpdate();
             close();
         });
 

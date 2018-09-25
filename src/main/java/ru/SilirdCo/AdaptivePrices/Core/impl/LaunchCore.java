@@ -47,7 +47,7 @@ public class LaunchCore {
         position.setMinPrice(20F);
         position.setUse(true);
         position.setPrice(50F);
-        position.setSales(0F);
+        position.setSales(30F);
         position.setIncrease(null);
         position.setDefaultPrice(50F);
 
@@ -62,7 +62,7 @@ public class LaunchCore {
         position.setMinPrice(10F);
         position.setUse(true);
         position.setPrice(30F);
-        position.setSales(0F);
+        position.setSales(30F);
         position.setIncrease(null);
         position.setDefaultPrice(30F);
 
@@ -77,7 +77,7 @@ public class LaunchCore {
         position.setMinPrice(5F);
         position.setUse(true);
         position.setPrice(30F);
-        position.setSales(0F);
+        position.setSales(30F);
         position.setIncrease(null);
         position.setDefaultPrice(30F);
 
@@ -92,7 +92,7 @@ public class LaunchCore {
         position.setMinPrice(30F);
         position.setUse(true);
         position.setPrice(100F);
-        position.setSales(0F);
+        position.setSales(30F);
         position.setIncrease(null);
         position.setDefaultPrice(100F);
 

@@ -72,7 +72,7 @@ public class AdaptivePriceService implements IAdaptivePriceService {
 
         for (Position position : positions) {
             position.setPrice(position.getDefaultPrice());
-            position.setSales(100F);
+            position.setSales(30F);
             position.setIncrease(null);
         }
 
