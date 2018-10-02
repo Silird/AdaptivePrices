@@ -86,12 +86,17 @@ public class MainJavaFX extends Application {
         });
     }
 
-    public static void openDialog(CommonPanel commonPanel, String title) {
+    public static void openDialog(CommonPanel commonPanel, String title, Stage owner) {
         Platform.runLater(() -> {
             Stage stage = new Stage();
             stage.setTitle(title);
             //stage.initStyle(StageStyle.UTILITY);
-            stage.initOwner(MainJavaFX.primaryStage);
+            if (owner == null) {
+                stage.initOwner(MainJavaFX.primaryStage);
+            }
+            else {
+                stage.initOwner(owner);
+            }
             stage.initModality(Modality.APPLICATION_MODAL);
             Scene scene = new Scene((Parent) commonPanel.getPanel());
             stage.setScene(scene);

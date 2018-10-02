@@ -1,5 +1,6 @@
 package ru.SilirdCo.AdaptivePrices.View.impl.Util.Factory;
 
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
@@ -29,11 +30,11 @@ public class FrameFactory {
         MainJavaFX.openFrame(panel, "Главное меню");
     }
 
-    public void openCreatePositionFrame(Position position) {
+    public void openCreatePositionFrame(Position position, Stage owner) {
         CommonPanel<CreatePositionFrameController> panel = PanelFactory.getInstance()
                 .getCreatePositionPanel(position);
 
-        MainJavaFX.openFrame(panel, "Обновление позиции");
+        MainJavaFX.openDialog(panel, "Обновление позиции", owner);
     }
 
     public void openShowFrame() {
@@ -43,39 +44,39 @@ public class FrameFactory {
         MainJavaFX.openFrame(panel, "Меню");
     }
 
-    public void getSelectFrame(Consumer<Position> selectAction) {
+    public void getSelectFrame(Consumer<Position> selectAction, Stage owner) {
         CommonPanel<SelectFrameController> panel = PanelFactory.getInstance()
                 .getSelectPanel(selectAction);
 
-        MainJavaFX.openDialog(panel, "Выбор позиции");
+        MainJavaFX.openDialog(panel, "Выбор позиции", owner);
     }
 
-    public void getSelectSalesFrame(Consumer<Float> selectAction) {
+    public void getSelectSalesFrame(Consumer<Float> selectAction, Stage owner) {
         CommonPanel<SelectSaleFrameController> panel = PanelFactory.getInstance()
                 .getSelectSalesPanel(selectAction);
 
-        MainJavaFX.openDialog(panel, "Ввод продаж позиции");
+        MainJavaFX.openDialog(panel, "Ввод продаж позиции", owner);
     }
 
-    public void openSalesFrame() {
+    public void openSalesFrame(Stage owner) {
         CommonPanel<SalesFrameController> panel = PanelFactory.getInstance()
                 .getSalesPanel();
 
-        MainJavaFX.openFrame(panel, "Ввод продаж");
+        MainJavaFX.openDialog(panel, "Ввод продаж", owner);
     }
 
-    public void openUserMainFrame() {
+    public void openUserMainFrame(Stage owner) {
         CommonPanel<UserMainFrameController> panel = PanelFactory.getInstance()
                 .getUserMainPanel();
 
-        MainJavaFX.openFrame(panel, "Пользователи");
+        MainJavaFX.openDialog(panel, "Пользователи", owner);
     }
 
-    public void openCreateUserFrame(User user) {
+    public void openCreateUserFrame(User user, Stage owner) {
         CommonPanel<CreateUserFrameController> panel = PanelFactory.getInstance()
                 .getCreateUserPanel(user);
 
-        MainJavaFX.openFrame(panel, "Обновление пользователя");
+        MainJavaFX.openDialog(panel, "Обновление пользователя", owner);
     }
 
     public void openAuthFrame() {

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Entities.DB.Position;
 import ru.SilirdCo.AdaptivePrices.Core.impl.Util.Factories.ServiceFactory;
 import ru.SilirdCo.AdaptivePrices.Util.Structure;
+import ru.SilirdCo.AdaptivePrices.View.impl.Events.EventSender;
 import ru.SilirdCo.AdaptivePrices.View.impl.Events.EventTransport;
 import ru.SilirdCo.AdaptivePrices.View.impl.Events.Filters.UpdateFilter;
 import ru.SilirdCo.AdaptivePrices.View.impl.Util.Factory.FrameFactory;
@@ -115,7 +116,7 @@ public class MainFrameController extends BaseController implements Initializable
     private void addListeners() {
 
         butAdd.setOnAction(event -> FrameFactory.getInstance()
-                .openCreatePositionFrame(null));
+                .openCreatePositionFrame(null, getFrame()));
 
         butEdit.setOnAction(event -> {
             if (table.getSelectionModel().isEmpty()) {
@@ -131,19 +132,19 @@ public class MainFrameController extends BaseController implements Initializable
             else {
                 Position position = table.getSelectionModel().getSelectedItem();
                 FrameFactory.getInstance()
-                        .openCreatePositionFrame(position);
+                        .openCreatePositionFrame(position, getFrame());
             }
         });
         table.setOnMouseClicked(t -> {
             if (t.getClickCount() == 2 && !table.getSelectionModel().isEmpty()) {
                 Position position = table.getSelectionModel().getSelectedItem();
                 FrameFactory.getInstance()
-                        .openCreatePositionFrame(position);
+                        .openCreatePositionFrame(position, getFrame());
             }
         });
 
         butUsers.setOnAction(event -> FrameFactory.getInstance()
-                .openUserMainFrame());
+                .openUserMainFrame(getFrame()));
 
         butChangeUser.setOnAction(event -> {
             super.close();
@@ -152,7 +153,7 @@ public class MainFrameController extends BaseController implements Initializable
         });
 
         butSales.setOnAction(event -> FrameFactory.getInstance()
-                .openSalesFrame());
+                .openSalesFrame(getFrame()));
 
         butReset.setOnAction(event -> {
             Alert conf = new Alert(Alert.AlertType.CONFIRMATION, "Вы уверены, что хотите сбросить цены?\n");
@@ -170,7 +171,7 @@ public class MainFrameController extends BaseController implements Initializable
                 ServiceFactory.getInstance()
                         .getAdaptivePriceService()
                         .reset();
-                update();
+                EventSender.sendUpdate();
             }
         });
 

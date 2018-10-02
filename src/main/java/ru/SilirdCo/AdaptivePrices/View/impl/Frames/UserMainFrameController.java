@@ -82,7 +82,7 @@ public class UserMainFrameController extends BaseController implements Initializ
     private void addListeners() {
 
         butAdd.setOnAction(event -> FrameFactory.getInstance()
-                .openCreateUserFrame(null));
+                .openCreateUserFrame(null, getFrame()));
 
         butEdit.setOnAction(event -> {
             if (table.getSelectionModel().isEmpty()) {
@@ -98,14 +98,14 @@ public class UserMainFrameController extends BaseController implements Initializ
             else {
                 User user = table.getSelectionModel().getSelectedItem();
                 FrameFactory.getInstance()
-                        .openCreateUserFrame(user);
+                        .openCreateUserFrame(user, getFrame());
             }
         });
         table.setOnMouseClicked(t -> {
             if (t.getClickCount() == 2 && !table.getSelectionModel().isEmpty()) {
                 User user = table.getSelectionModel().getSelectedItem();
                 FrameFactory.getInstance()
-                        .openCreateUserFrame(user);
+                        .openCreateUserFrame(user, getFrame());
             }
         });
     }

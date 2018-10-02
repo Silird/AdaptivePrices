@@ -90,7 +90,7 @@ public class SalesFrameController extends BaseController implements Initializabl
                                     table.refresh();
                                 }
                             }
-                        })));
+                        }, getFrame()), getFrame()));
 
         butRecord.setOnAction(event -> {
             for (Sale sale : table.getItems()) {
