@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="186.0" prefWidth="244.0" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="247.0" prefWidth="276.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutX="170.0" layoutY="87.0" prefHeight="200.0" prefWidth="264.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="170.0" layoutY="87.0" prefHeight="259.0" prefWidth="342.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label fx:id="labelTitle" text="Добавление пользователя" />
             <VBox prefWidth="100.0">
@@ -27,10 +27,11 @@
                   <PasswordField fx:id="textPassword" />
                </children>
             </VBox>
-            <CheckBox fx:id="checkAdmin" mnemonicParsing="false" text="Админитсратор" />
-            <VBox alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
+            <CheckBox fx:id="checkAdmin" mnemonicParsing="false" text="Администратор" />
+            <Label text="Внимание! Чтобы права вступили в силу требуется перезайти" wrapText="true" VBox.vgrow="ALWAYS" />
+            <VBox alignment="BOTTOM_LEFT" VBox.vgrow="SOMETIMES">
                <children>
-                  <HBox alignment="BOTTOM_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <HBox alignment="BOTTOM_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefWidth="200.0" spacing="10.0">
                      <children>
                         <Button fx:id="butRecord" mnemonicParsing="false" text="Запись" HBox.hgrow="ALWAYS" />
                         <Button fx:id="butAccept" mnemonicParsing="false" text="Ок" />

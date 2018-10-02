@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="399.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="309.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="113.0" layoutY="65.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
@@ -46,7 +46,8 @@
                </children>
             </HBox>
             <CheckBox fx:id="checkUse" mnemonicParsing="false" text="В обороте" />
-            <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0">
+            <Label text="Внимание! Изменённые минимальные и максимальные цены вступят в силу после следующего пересчёта цен!" textOverrun="CENTER_WORD_ELLIPSIS" wrapText="true" VBox.vgrow="ALWAYS" />
+            <VBox alignment="BOTTOM_LEFT" prefWidth="100.0" VBox.vgrow="SOMETIMES">
                <children>
                   <HBox nodeOrientation="RIGHT_TO_LEFT" prefWidth="200.0" spacing="10.0">
                      <children>
